@@ -1,0 +1,34 @@
+{
+    "name": "vierwd/oauth2-server",
+    "type": "typo3-cms-extension",
+    "description": "OAuth2 Server for TYPO3",
+    "keywords": [
+        "TYPO3",
+        "extension"
+    ],
+    "type": "project",
+    "license": "UNLICENSED",
+    "support": {
+        "issues": "https://github.com/4wdmedia/vierwd_oauth2_server/issues"
+    },
+    "authors": [{
+        "name": "FORWARD MEDIA",
+        "email": "kontakt@4wdmedia.de",
+        "homepage": "https://www.4wdmedia.de",
+        "role": "Developer"
+    }],
+    "require": {
+        "php": ">=5.5.0",
+        "typo3/cms-core": "^7.6 || ^8.0",
+        "league/oauth2-server": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Vierwd\\VierwdOAuth2Server\\": "Classes"
+        }
+    },
+    "replace": {
+        "vierwd_oauth2_server": "self.version",
+        "typo3-ter/vierwd-oauth2-server": "self.version"
+    }
+}
