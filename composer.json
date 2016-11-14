@@ -1,13 +1,12 @@
 {
     "name": "vierwd/typo3-oauth2-server",
-    "type": "typo3-cms-extension",
     "description": "OAuth2 Server for TYPO3",
+    "type": "typo3-cms-extension",
     "keywords": [
         "TYPO3",
         "extension",
         "OAuth2"
     ],
-    "type": "project",
     "license": "UNLICENSED",
     "support": {
         "issues": "https://github.com/4wdmedia/vierwd_oauth2_server/issues"
