@@ -1,10 +1,11 @@
 {
-    "name": "vierwd/oauth2-server",
+    "name": "vierwd/typo3-oauth2-server",
     "type": "typo3-cms-extension",
     "description": "OAuth2 Server for TYPO3",
     "keywords": [
         "TYPO3",
-        "extension"
+        "extension",
+        "OAuth2"
     ],
     "type": "project",
     "license": "UNLICENSED",
