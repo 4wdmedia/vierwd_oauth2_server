@@ -6,10 +6,12 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use League\OAuth2\Server\Exception\OAuthServerException;
+use Vierwd\VierwdOAuth2Server\Repositories;
+use Vierwd\VierwdOAuth2Server\Entities;
 
 class Authentication extends \TYPO3\CMS\Sv\AbstractAuthenticationService {
 
-	public function oauthServer(ServerRequestInterface $request, ResponseInterface $response) {
+	public function oauth2Server(ServerRequestInterface $request, ResponseInterface $response) {
 		$action = GeneralUtility::_GP('action');
 
 		if ($action === 'authorize') {
@@ -31,14 +33,14 @@ class Authentication extends \TYPO3\CMS\Sv\AbstractAuthenticationService {
 	 * @return League\OAuth2\Server\AuthorizationServer
 	 */
 	public function getOAuth2Server() {
-		$clientRepository = new OAuth2\Repositories\ClientRepository();
-		$scopeRepository = new OAuth2\Repositories\ScopeRepository();
-		$accessTokenRepository = new OAuth2\Repositories\AccessTokenRepository();
-		$authCodeRepository = new OAuth2\Repositories\AuthCodeRepository();
-		$refreshTokenRepository = new OAuth2\Repositories\RefreshTokenRepository();
+		$clientRepository = new Repositories\ClientRepository();
+		$scopeRepository = new Repositories\ScopeRepository();
+		$accessTokenRepository = new Repositories\AccessTokenRepository();
+		$authCodeRepository = new Repositories\AuthCodeRepository();
+		$refreshTokenRepository = new Repositories\RefreshTokenRepository();
 
-		$privateKey = GeneralUtility::getFileAbsFileName('EXT:vierwd_oauth2_server/Resources/Private/OAuth2/private.key');
-		$publicKey = GeneralUtility::getFileAbsFileName('EXT:vierwd_oauth2_server/Resources/Private/OAuth2/public.key');
+		$privateKey = GeneralUtility::getFileAbsFileName('EXT:vierwd_oauth2_server/Resources/Private/Keys/private.key');
+		$publicKey = GeneralUtility::getFileAbsFileName('EXT:vierwd_oauth2_server/Resources/Private/Keys/public.key');
 
 		// Setup the authorization server
 		$server = new \League\OAuth2\Server\AuthorizationServer(
@@ -76,7 +78,7 @@ class Authentication extends \TYPO3\CMS\Sv\AbstractAuthenticationService {
 			// The auth request object can be serialized into a user's session
 			$authRequest = $server->validateAuthorizationRequest($request);
 			// Once the user has logged in set the user on the AuthorizationRequest
-			$authRequest->setUser(new OAuth2\Entities\UserEntity());
+			$authRequest->setUser(new Entities\UserEntity());
 			// Once the user has approved or denied the client update the status
 			// (true = approved, false = denied)
 			$authRequest->setAuthorizationApproved(true);
@@ -109,8 +111,8 @@ class Authentication extends \TYPO3\CMS\Sv\AbstractAuthenticationService {
 	}
 
 	public function respondToOwnerResource(ServerRequestInterface $request, ResponseInterface $response) {
-		$accessTokenRepository = new OAuth2\Repositories\AccessTokenRepository();
-		$publicKey = GeneralUtility::getFileAbsFileName('EXT:vierwd_oauth2_server/Resources/Private/OAuth2/public.key');
+		$accessTokenRepository = new Repositories\AccessTokenRepository();
+		$publicKey = GeneralUtility::getFileAbsFileName('EXT:vierwd_oauth2_server/Resources/Private/Keys/public.key');
 
 		$server = new \League\OAuth2\Server\ResourceServer($accessTokenRepository, $publicKey);
 
