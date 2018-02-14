@@ -7,7 +7,7 @@
         "extension",
         "OAuth2"
     ],
-    "license": "UNLICENSED",
+    "license": "proprietary",
     "support": {
         "issues": "https://github.com/4wdmedia/vierwd_oauth2_server/issues"
     },
